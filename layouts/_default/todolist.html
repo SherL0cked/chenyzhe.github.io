@@ -1,0 +1,23 @@
+{{ define "main" }}
+<h1>TODO List</h1>
+<ul style="list-style-type: none; padding-left: 0;">
+  {{ range where .Site.Pages "Section" "posts" }}
+    {{ $todoSection := findRE `(?ms)^##\s*TODO:\s*(.*?)(\n##|\z)` .RawContent }}
+    {{ if $todoSection }}
+      {{ $todoItems := findRE `(?m)^\s*-\s*\[[x\s]\]\s*.*` (index $todoSection 0) }}
+      {{ if $todoItems }}
+        <li style="margin-top: 30px; margin-bottom: 15px;"><strong>{{ .Title }}</strong> - {{ .Date.Format "2006-01-02" }}</li>
+        <ul style="list-style-type: none; padding-left: 20px; margin-top: 10px;">
+          {{ range $todoItems }}
+            <li style="margin-bottom: 15px;">
+              {{- $item := . | replaceRE `-\s*\[[x\s]\]\s*` "" -}}
+              <input type="checkbox" disabled {{ if findRE `-\s*\[x\]` . }}checked{{ end }}> 
+              {{ $item | markdownify }}
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</ul>
+{{ end }}
