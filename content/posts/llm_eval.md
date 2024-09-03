@@ -5,6 +5,7 @@ draft = true
 +++
 Optimized query with qa_cot_few_shot working good, and better than original staging and direct answer ones.
 However it's hallucinating. Why's that, how to prevent them.
+
 To prevent hallucination from LLM, there are few ways to do it:
 - Prompt Optimization, concise prompt with clear instruction on generation rules like Apple does
 - Post-process, filter out hallucinated answers by checking the answer with a pre-trained model like RAG or BART(This is costly with low priority)
@@ -12,6 +13,7 @@ To prevent hallucination from LLM, there are few ways to do it:
 - Reducing input context length, therefore hallucination(Lost in Instructions).
     - Extra step after search and before QA: Reranking and filtering retrievals
     - Chunking the documents
+
 
 Evaluation with positive and negative datasets.
 Each with 20 test questions are good enough.
@@ -24,7 +26,8 @@ Used GPT-4o evaluating around 4 metrics in 2 areas.
 - General RAG
     - Answer Relevancy
     - Answer Faithfulness
-    - Toxicity and Bias
+    - Toxicity and Bias （Red teaming）
+    - Hallucination
 - Business Goal for Task(Summarization)
     - Answer Structure: Instructional. Step-by-step and code snippet is a plus. Markdown style
     - Answer quality: 现在的RAG回答千篇一律，宽泛且没有特点。也许应该利用LLM的内在知识，结合RAG生成更有特点的回答。比如当常识(Factual)性的回答冲突时，优先使用RAG的答案。

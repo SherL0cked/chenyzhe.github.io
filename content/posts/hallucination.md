@@ -13,14 +13,6 @@ Now in AI era, LLM can't learn from the majority voice for Chinese and which cou
 and opinions. which could be toxical in some case.
 therefore, building the dataset for China ecosystem is really important for especially open-source model training.
 
-Apply scientific method on prompt engineering:
-
-- Hypothesis:
-- Experiment:
-- Observation:
-- Conclusion:
-  Especially for Observation for Agentic LLM, find inner connection between LLM own knowledge and embedded knowledge
-  database. Loop and reason.
 
 ### Identify the cause of hallucination:
 
@@ -36,6 +28,16 @@ Evidence:
 - Prompt is little too complex. and model is not powerful enough.
 - How to add a camera API to Meraki resources is a bad query. Even GPT-4o failed with inaccurate answer. Could be
   improved by rewritten.
+
+Some recommendation from [Anthropic](https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations#advanced-techniques):
+- Chain-of-thought verification: Ask Claude to explain its reasoning step-by-step before giving a final answer. This can reveal faulty logic or assumptions.
+- Best-of-N verficiation: Run Claude through the same prompt multiple times and compare the outputs. Inconsistencies across outputs could indicate hallucinations. 
+  - This is costly, and could be improved by a more powerful model, a hyperpameter like top-k or top-p.
+- Iterative refinement: Use Claude’s outputs as inputs for follow-up prompts, asking it to verify or expand on previous statements. This can catch and correct inconsistencies.
+  - Is what agentic QA does
+- External knowledge restriction: Explicitly instruct Claude to only use information from provided documents and not its general knowledge.
+
+
 
 ## TODO:
 - [ ] A standard process for quickly rolling out new prompt evaluations
